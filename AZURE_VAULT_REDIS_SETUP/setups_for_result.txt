@@ -1,0 +1,13 @@
+login to database:
+
+mysql -u root -p  # no password setup
+
+activate the venv:
+
+source myenv/bin/activate
+
+sudo apt update
+sudo apt install redis-tools -y
+
+
+redis-cli -h <redis_name>.redis.cache.windows.net -p 6380 --tls -a "YOUR_REDIS_PASSWORD" DEL sample_data_cache
