@@ -1,0 +1,29 @@
+#cloud-config
+package_update: true
+
+packages:
+  - nginx
+
+runcmd:
+  - |
+    HOSTNAME=$(hostname)
+
+    cat <<EOF > /var/www/html/index.html
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>VMSS NGINX</title>
+    </head>
+    <body style="text-align:center;font-family:Arial">
+        <h1>Congratulations</h1>
+        <h2>You hit hostname: <b>$HOSTNAME</b></h2>
+        <h3>Port 30080</h3>
+    </body>
+    </html>
+    EOF
+
+    sed -i 's/listen 80 default_server;/listen 30080 default_server;/g' /etc/nginx/sites-available/default
+    sed -i 's/listen \[::\]:80 default_server;/listen \[::\]:30080 default_server;/g' /etc/nginx/sites-available/default
+
+    systemctl enable nginx
+    systemctl restart nginx
