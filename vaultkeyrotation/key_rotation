@@ -1,8 +1,10 @@
 ##################Rotate the key:
+echo -n "Rotated@456" > /tmp/mysql_pass.txt
+
 az keyvault secret set \
-  --vault-name kv-mysql-demo-123 \
+  --vault-name nnnop \
   --name mysql-password \
-  --value Rotated@456
+  --file /tmp/mysql_pass.txt
 ####################update passowrd for user:
   mysql -u root <<EOF
 ALTER USER 'appuser'@'localhost' IDENTIFIED BY 'Rotated@456';
